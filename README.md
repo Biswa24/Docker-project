@@ -17,14 +17,13 @@ for any troubleshooting , check out the [documentation](https://docs.docker.com/
   for docker compose , [click here](https://docs.docker.com/compose/install/)
 
 
-Start the docker application 
+
 
 ## Usage
-Go to the root directory & run 
+Start the docker application , Go to the root directory & run 
 ```bash
 ./scripts/run-local.sh
 ```
-
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
