@@ -5,7 +5,7 @@ services:
   flaskapp_new:
     build:
       context: .
-      dockerfile: Dockerfile.local
+      dockerfile: Dockerfile
     image: urself
     container_name: flaskapp_new
     tty: true

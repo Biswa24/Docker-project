@@ -22,7 +22,7 @@ for any troubleshooting , check out the [documentation](https://docs.docker.com/
 ## Usage
 Start the docker application , Go to the root directory & run 
 ```bash
-./scripts/run-local.sh
+./run.sh
 ```
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
