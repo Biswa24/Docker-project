@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Covid-19</title>
+    <style>
+        #title{
+            text-align: center;
+        }
+        #footer{
+            background-color: coral;
+            padding: 5px;
+        }
+        .pp{
+            margin-bottom: 0px;
+        }
+        body{
+            background-color: aliceblue;
+        }
+        #parent{
+            text-align: center;
+            height: 87vh;
+        }
+        .indexcity {
+            z-index: 9999;
+        }
+        
+        .right {
+            right: 0 !important;
+            left: 0 !important;
+        }
+        .about{
+            background-color: #0B5875;
+            padding: 20px;
+        }
+        .colab ,.sourcces{
+            background-color: cornflowerblue;
+        }
+        a{
+            color: rgb(167, 247, 39);  
+        }
+        @media only screen and (max-width: 767px) {
+            .navbar-collapse{
+                background-color: white;
+                position: fixed;
+                top: 0;
+                transition:all 0.8s ease-out;
+                height: 100%;
+                width: 50%;
+                left: 700px;
+                margin-left: 50%;
+            }
+            .navbar-inverse .navbar-nav>li>a {
+            color: #000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-default navbar-inverse pp" role="navigation">
+        <div class="navbar-header">            
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle Navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            <a class="navbar-brand" href="#">
+                <div class="logo">
+                  Covid19
+                </div>
+            </a>
+            
+        </div>
+            
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right whi">
+                    <li><a href="/" class="active">Home</a></li>
+                    <li><a href="{{ url_for('helpline') }}">Helpline</a></li>
+                    <li><a href="{{ url_for('sources') }}">Sources</a></li>
+                </ul>
+            </div>
+        
+    </div>
+    <div id="parent">
+        <div class="about">
+            <h1 id = 'title' style="color: #55C6EC;">About</h1>
+            <p id = 'details'>
+                <h2 style="color: #f5efdf;">Who made this website?</h2>
+                <li style="color: #f5efdf;">This site was created by Biswajeet Sah & Snehashish Kalamkar. We are undergrad in KGEC , West Bengal, India.</li>
+                <li style="color: #f5efdf;">You can email us at <a href="mailto:contact@mail.itsbiswa.me">contact@mail.itsbiswa.me</a></li>
+            </p>
+        </div>
+        <div class = 'collab'>
+            <h2>Collaboration</h2>
+            <p>
+                If you have a cool idea and want to add it to the website, email us at <a href="mailto:covid19@mail.itsbiswa.me">collab@mail.itsbiswa.me</a>
+            </p>
+        </div>
+        <div class = 'sources'>
+            <h2>Sources</h2>
+            <p>
+                Government Websites, health departments & others
+                <li><a target="_blank" href="https://corona.lmao.ninja/">NovelCOVIDs</a></li>
+                <li><a target="_blank" href="covid19india.org">Covid19india</a></li>
+                <li><a target="_blank" href="https://www.mohfw.gov.in/">Mofhfw</a></li>
+                <li><a target="_blank" href="https://ncov2019.live">ncov</a></li>
+            </p>
+        </div>
+    </div>
+    <footer id="footer">
+        <p style="float: right; margin-right: 10px;"> &copy MR.BSK</p>
+        <p>Contact information: <a href="mailto:covid19@mail.itsbiswa.me">covid19@mail.itsbiswa.me</a></p>
+    </footer>
+
+    <script>
+        jQuery(function($){
+    $('.navbar-toggle').click(function(){
+    $('.navbar-collapse').toggleClass('right');
+    $('.navbar-toggle').toggleClass('indexcity');
+    });
+        })
+    </script>
+</body>
+</html>

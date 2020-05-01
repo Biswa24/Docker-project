@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <title>Covid-19</title>
+    <style>
+        #title{
+            text-align: center;
+        }
+        #footer{
+            background-color: coral;
+            padding: 5px;
+        }
+        .pp{
+            margin-bottom: 0px;
+        }
+        body{
+            background-color: aliceblue;
+        }
+        #parent{
+            text-align: center;
+            
+        }
+        .indexcity {
+            z-index: 9999;
+        }
+        
+        .right {
+            right: 0 !important;
+            left: 0 !important;
+        }
+        #top{
+            background-color: #0B5875;
+            padding: 20px;
+            color: #f5efdf;
+        }
+        @media only screen and (max-width: 767px) {
+            .navbar-collapse{
+                background-color: white;
+                position: fixed;
+                top: 0;
+                transition:all 0.8s ease-out;
+                height: 100%;
+                width: 50%;
+                left: 700px;
+                margin-left: 50%;
+            }
+            .navbar-inverse .navbar-nav>li>a {
+            color: #000;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar navbar-default navbar-inverse pp" role="navigation">
+        <div class="navbar-header">            
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle Navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            <a class="navbar-brand" href="#">
+                <div class="logo">
+                  Covid19
+                </div>
+            </a>
+            
+        </div>
+            
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right whi">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{{ url_for('helpline') }}">Helpline</a></li>
+                    <li><a href="{{ url_for('sources') }}">Sources</a></li>
+                </ul>
+            </div>
+        
+    </div>
+    <div id=parent>
+        <div id="top">
+            <h2>Helpline Number Toll free: 
+                +91-11-23978046</h2>
+            <h2>Helpline Email ID : ncov2019@gov.in <br>
+                                    ncov2019@gmail.com</h2>
+        </div>
+        <div style="margin: 10px;">
+            <table class="table table-striped"><thead><tr><th style="width: 10%; text-align: center;">Sr.No</th><th style="width: 40%; text-align: center;">State</th><th style="width: 50%; text-align: center;">Helpline Number</th></tr></thead><tbody><tr><td>1</td><td>Andhra Pradesh</td><td><a target="_blank" href="tel:0866-2410978">0866-2410978</a></td></tr><tr><td>2</td><td>Arunachal Pradesh</td><td><a target="_blank" href="tel:9536055743">9536055743</a></td></tr><tr><td>3</td><td>Assam</td><td><a target="_blank" href="tel:6913347770">6913347770</a></td></tr><tr><td>4</td><td>Bihar</td><td><a target="_blank" href="tel:104">104</a></td></tr><tr><td>5</td><td>Chhattisgarh</td><td><a target="_blank" href="tel:077122-35091">077122-35091</a></td></tr><tr><td>6</td><td>Goa</td><td><a target="_blank" href="tel:104">104</a></td></tr><tr><td>7</td><td>Gujarat</td><td><a target="_blank" href="tel:104">104</a></td></tr><tr><td>8</td><td>Haryana</td><td><a target="_blank" href="tel:8558893911">8558893911</a></td></tr><tr><td>9</td><td>Himachal Pradesh</td><td><a target="_blank" href="tel:104">104</a></td></tr><tr><td>10</td><td>Jharkhand</td><td><a target="_blank" href="tel:104">104</a></td></tr><tr><td>11</td><td>Karnataka</td><td><a target="_blank" href="tel:104">104</a></td></tr><tr><td>12</td><td>Kerala</td><td><a target="_blank" href="tel:0471-2552056">0471-2552056</a></td></tr><tr><td>13</td><td>Madhya Pradesh</td><td><a target="_blank" href="tel:0755-2527177">0755-2527177</a></td></tr><tr><td>14</td><td>Maharashtra</td><td><a target="_blank" href="tel:020-26127394">020-26127394</a></td></tr><tr><td>15</td><td>Manipur</td><td><a target="_blank" href="tel:3852411668">3852411668</a></td></tr><tr><td>16</td><td>Meghalaya</td><td><a target="_blank" href="tel:9366090748">9366090748</a></td></tr><tr><td>17</td><td>Mizoram</td><td><a target="_blank" href="tel:102">102</a></td></tr><tr><td>18</td><td>Nagaland</td><td><a target="_blank" href="tel:7005539653">7005539653</a></td></tr><tr><td>19</td><td>Odisha</td><td><a target="_blank" href="tel:9439994859">9439994859</a></td></tr><tr><td>20</td><td>Punjab</td><td><a target="_blank" href="tel:104">104</a></td></tr><tr><td>21</td><td>Rajasthan</td><td><a target="_blank" href="tel:0141-2225624">0141-2225624</a></td></tr><tr><td>22</td><td>Sikkim</td><td><a target="_blank" href="tel:104">104</a></td></tr><tr><td>23</td><td>Tamil Nadu</td><td><a target="_blank" href="tel:044-29510500">044-29510500</a></td></tr><tr><td>24</td><td>Telangana</td><td><a target="_blank" href="tel:104">104</a></td></tr><tr><td>25</td><td>Tripura</td><td><a target="_blank" href="tel:0381-2315879">0381-2315879</a></td></tr><tr><td>26</td><td>Uttarakhand</td><td><a target="_blank" href="tel:104">104</a></td></tr><tr><td>27</td><td>Uttar Pradesh</td><td><a target="_blank" href="tel:18001805145">18001805145</a></td></tr><tr><td>28</td><td>West Bengal</td><td><a target="_blank" href="tel:3323412600">3323412600</a></td></tr></tbody></table>
+        </div>
+    </div>
+    <footer id="footer">
+        <p style="float: right; margin-right: 10px;"> &copy MR.BSK</p>
+        <p>Contact information: <a href="mailto:covid19@mail.itsbiswa.me">covid19@mail.itsbiswa.me</a></p>
+    </footer>
+
+    <script>
+        jQuery(function($){
+    $('.navbar-toggle').click(function(){
+    $('.navbar-collapse').toggleClass('right');
+    $('.navbar-toggle').toggleClass('indexcity');
+    });
+        })
+    </script>
+</body>
+</html>

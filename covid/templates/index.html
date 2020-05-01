@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Covid-19</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+</head>
+<body>   
+    <div style="z-index: 9999999;" class="navbar navbar-default navbar-inverse pp" role="navigation">
+        <div class="navbar-header">            
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle Navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+            <a class="navbar-brand" href="#">
+                <div class="logo">
+                  Covid19
+                </div>
+            </a>
+            
+        </div>
+            
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right whi">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="{{ url_for('helpline') }}">Helpline</a></li>
+                    <li><a href="{{ url_for('sources') }}">Sources</a></li>
+                </ul>
+            </div>
+        
+    </div>
+    <div style="display: block; background-color: #f0ede9; text-align: right;"><span style="font-style: italic;">
+      Last updated: {{lastupdated}}<span id="lastupdate"></span>
+    </span></div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4">
+                <h1 style="text-align: center;">Globally Affected</h1>
+                <div style="color: blue;" class="globalbox">Total Confirmed Cases<p class="boxdata" id="Total-Confirmed-Cases"></p></div>
+                <div style="color: red;" class="globalbox">Total Deceased<p class="boxdata" id="Total-Deceased"></p></div>
+                <div style="color: purple;" class="globalbox">Total Active<p class="boxdata" id="Total-Active"></p></div>
+                <div style="color: green;" class="globalbox">Total Recovered<p class="boxdata" id="Total-Recovered"></p></div>
+                <div style="color: black;" class="globalbox">Total Countries Affected<p class="boxdata" id="Total-Countries-Infected"></p></div>
+                
+                <h1 style="margin-top: 100px;text-align: center;">Present-day</h1>
+                <div style="color: blue;" class="globalbox">Confirmed COVID cases<p class="boxdata" id="today-Confirmed-COVID-cases">...</p></div>
+                <!--<div style="color: purple;" class="globalbox">Active COVID cases<p class="boxdata" id="today-Active-COVID-cases">...</p></div>-->
+                <div style="color: green;" class="globalbox">Cured/discharged cases<p class="boxdata" id="today-Cured-discharged-cases">...</p></div>
+                <div style="color: red;" class="globalbox">Death cases<p class="boxdata" id="today-Death-cases">...</p></div>
+            </div>
+            <div class="col-sm-8">
+                <h1 style="text-align: center;"> Outbreak in India</h1>
+                <div class="row">
+                    <div style="color: blue;" class="col-sm-3 indiabox">Confirmed COVID cases<p class="boxdata" id="Confirmed-COVID-cases">...</p></div>
+                    <div style="color: purple;" class="col-sm-3 indiabox">Active COVID cases<p class="boxdata" id="Active-COVID-cases">...</p></div>
+                    <div style="color: green;" class="col-sm-3 indiabox">Cured/discharged cases<p class="boxdata" id="Cured-discharged-cases">...</p></div>
+                    <div style="color: red;" class="col-sm-3 indiabox">Death cases<p class="boxdata" id="Death-cases">...</p></div>
+                </div>        
+                <div style="overflow: auto;">
+                    <canvas id="graph2" width="100%" height="400"></canvas>
+                </div> 
+                <div style="overflow: auto;">
+                    <canvas id="graph3" width="1000px" height="500"></canvas>
+                </div>
+                <div style="overflow: auto;">
+                    <canvas id="graph1" width="1000px" height="400"></canvas>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+    <div>
+    <footer id="footer">
+        <p id="time_data" style="display: none;">{{time_data}}</p>
+                <p id="state_data" style="display: none;">{{state_data}}</p>
+                <p id="global_data" style="display: none;">{{global_data}}</p>
+        <p style="float: right;"> &copy MR.BSK</p>
+        <p>Contact information: <a href="mailto:covid19@mail.itsbiswa.me">covid19@mail.itsbiswa.me</a></p>
+    </footer>
+  </div>
+
+<script>
+    function addCommas(nStr){
+        nStr += '';
+        var x = nStr.split('.');
+        var x1 = x[0];
+        var x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+        x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return x1 + x2;
+    }
+    jQuery(function($){
+    $('.navbar-toggle').click(function(){
+    $('.navbar-collapse').toggleClass('right');
+    $('.navbar-toggle').toggleClass('indexcity');
+    });
+    var global_data=$("#global_data").html()
+    global_data = global_data.replace(/\'/g, "\"");
+    global_data=JSON.parse(global_data)
+    console.log(global_data)
+    $("#Total-Confirmed-Cases").text(addCommas(global_data["cases"]))
+    $("#Total-Deceased").text(addCommas(global_data["deaths"]))
+    $("#Total-Recovered").text(addCommas(global_data["recovered"]))
+    $("#Total-Active").text(addCommas(global_data["active"]))
+    $("#Total-Countries-Infected").text(addCommas(global_data["affectedCountries"]))
+
+    var data=$("#time_data").html()
+    data = data.replace(/\'/g, "\"");
+    data=JSON.parse(data)
+    // console.log(data)
+     // Return with commas in between
+    var numberWithCommas = function(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+    maindata={}
+    for(let i in data[0])
+    {
+        maindata[i]=[]
+    }
+    for(let j in data)
+    {
+        for(let k in data[j])
+        {
+            if(k!="date")
+            {
+                maindata[k].push(parseInt(data[j][k]))
+            }
+            else
+            {
+                maindata[k].push(data[j][k])
+            }
+        }
+        
+    }
+//   console.log(maindata)
+
+  function makechart(died,recovered,active,dates,ele_id,title,type, is_stacked,if_skip_ticks,resp,asp_ratio){
+    //deased - red , recovered-green, active - yellow
+    
+
+    // Chart.defaults.global.elements.rectangle.backgroundColor = '#FF0000';
+
+    var bar_ctx = document.getElementById(ele_id);
+    var bar_chart = new Chart(bar_ctx, {
+        type: type,
+        data: {
+            labels: dates,
+            datasets: [
+            {
+                label: 'Death',
+                data: died,
+                            backgroundColor: "rgba(219, 49, 26,0.8)",
+                            hoverBackgroundColor: "#EF5350",
+                            hoverBorderWidth: 0
+            },
+            {
+                label: 'Recovered',
+                data: recovered,
+                            backgroundColor: "rgba(134, 189, 87,0.6)",
+                            hoverBackgroundColor: "#7E57C2",
+                            hoverBorderWidth: 0
+            },
+            {
+                label: 'Active',
+                data: active,
+                            backgroundColor: "rgba(238, 240, 113,0.7)",
+                            hoverBackgroundColor: "#FFCA28",
+                            hoverBorderWidth: 0
+            },            
+            ]
+        },
+        options: {
+                animation: {
+                duration: 10,
+            },
+            title: {
+            display: true,
+                text: title
+            },
+            responsive: resp,
+            maintainAspectRatio: asp_ratio,
+            tooltips: {
+                        mode: 'label',
+            callbacks: {
+            label: function(tooltipItem, data) { 
+                return data.datasets[tooltipItem.datasetIndex].label + ": " + numberWithCommas(tooltipItem.yLabel);
+            }
+            }
+            },
+            scales: {
+            xAxes: [{ 
+                stacked: is_stacked, 
+                gridLines: { display: false },
+                ticks: {
+                    autoSkip: if_skip_ticks,
+                }
+                }],
+            yAxes: [{ 
+                stacked: is_stacked, 
+                ticks: {
+                        callback: function(value) { return numberWithCommas(value); },
+                        }, 
+                }],
+            }, // scales
+            legend: {display: true}
+        } // options
+    }
+    );
+  }
+    var died = maindata["totaldeceased"];
+    var recovered = maindata["totalrecovered"];
+    var active = maindata["totalconfirmed"]
+    var dates = maindata["date"]
+    var a = dates.indexOf("30 January ");
+    var b = dates.indexOf("15 March ");
+    console.log(a,b)
+    dates.splice(a, b-a);
+    recovered.splice(a, b-a);
+    died.splice(a, b-a);
+    active.splice(a, b-a);
+    console.log(died,recovered,active,dates)
+    //function makechart(died,recovered,active,dates,ele_id,title,type, is_stacked,if_skip_ticks)
+    makechart(died,recovered,active,dates,"graph1","Daily Cases","line",false,true,true,false) 
+
+    var died1 = maindata["dailydeceased"];
+    var recovered1 = maindata["dailyrecovered"];
+    var active1 = maindata["dailyconfirmed"]
+    var dates1 = maindata["date"]
+    var a = dates1.indexOf("30 January ");
+    var b = dates1.indexOf("15 March ");
+    console.log(a,b)
+    //dates1.splice(0, 45);
+    recovered1.splice(0, 45);
+    died1.splice(0, 45);
+    active1.splice(0, 45);
+    console.log(died1,recovered1,active1,dates1)
+    //creating graph for daily increment
+    makechart(died1,recovered1,active1,dates1,"graph2","Daily Increment","bar",true,true,true,false)
+
+    var state_data=$("#state_data").html()
+    //console.log(state_data)
+    state_data = state_data.replace(/\'/g, "\"");
+    state_data = state_data.replace("WB totals and district numbers are currently updated according to https://www.mohfw.gov.in", "");
+    state_data = state_data.replace("Kerala\"s", "");
+    //console.log(state_data)
+    //console.log(state_data[3477])
+    /*s=""
+    for(i=3470;i<3490;i++)
+    {
+        s+=state_data[i]
+    }
+    console.log(s)*/
+    state_data=JSON.parse(state_data)
+    
+    //console.log(state_data)
+    // console.log(state_data)
+    // console.log(state_data[0]["lastupdatedtime"])
+    // $("#lastupdate").text(state_data[0]["lastupdatedtime"])
+    //console.log(state_data[0])
+
+    $("#Confirmed-COVID-cases").text(addCommas(state_data[0]["confirmed"]))
+    $("#Active-COVID-cases").text(addCommas(state_data[0]["active"]))
+    $("#Cured-discharged-cases").text(addCommas(state_data[0]["recovered"]))
+    $("#Death-cases").text(addCommas(state_data[0]["deaths"]))
+    // console.log(addCommas(state_data[0]['delta']["confirmed"]))
+    $("#today-Confirmed-COVID-cases").text(addCommas(state_data[0]['deltaconfirmed']))
+    //$("#today-Active-COVID-cases").text(addCommas(state_data[0]['delta']["active"]))
+    $("#today-Cured-discharged-cases").text(addCommas(state_data[0]['deltarecovered']))
+    $("#today-Death-cases").text(addCommas(state_data[0]['deltadeaths']))
+    main_state_data={
+        "deaths":[],
+        "active":[],
+        "state":[],
+        "recovered":[]
+    }
+    for(let z in state_data)
+    {   if(state_data[z]["state"]!="Total"){
+            main_state_data["deaths"].push(parseInt(state_data[z]["deaths"]))
+            main_state_data["active"].push(parseInt(state_data[z]["active"]))
+            main_state_data["recovered"].push(parseInt(state_data[z]["recovered"]))
+            main_state_data["state"].push(state_data[z]["state"])
+        }
+    }
+    // console.log(main_state_data)
+    //function makechart(died,recovered,active,dates,ele_id,title,type, is_stacked,if_skip_ticks)
+    makechart(main_state_data["deaths"],main_state_data["recovered"],main_state_data["active"],main_state_data["state"],"graph3","State Cases","bar",true,false,false,false)
+
+    
+  
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <script type="text/javascript" src="../static/json/data.json"></script>
+    <title>Document</title>
+</head>
+<body>
+    <p id="time_data" style="display: none;">{{time_data}}</p>
+    <p id="state_data" style="display: none;">{{state_data}}</p>
+    <p id="global_data" style="display: none;">{{global_data}}</p>
+    <canvas id="graph1" width="800" height="300"></canvas>
+    <canvas id="graph2" width="800" height="300"></canvas>
+    <canvas id="graph3" width="800" height="500"></canvas>
+    <script>
+    var data=$("#time_data").html()
+    data = data.replace(/\'/g, "\"");
+    data=JSON.parse(data)
+    console.log(data)
+     // Return with commas in between
+    var numberWithCommas = function(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    };
+    maindata={}
+    for(let i in data[0])
+    {
+        maindata[i]=[]
+    }
+    for(let j in data)
+    {
+        for(let k in data[j])
+        {
+            if(k!="date")
+            {
+                maindata[k].push(parseInt(data[j][k]))
+            }
+            else
+            {
+                maindata[k].push(data[j][k])
+            }
+        }
+        
+    }
+  console.log(maindata)
+
+  function makechart(died,recovered,active,dates,ele_id,title,type, is_stacked,if_skip_ticks){
+    //deased - red , recovered-green, active - yellow
+    
+
+    // Chart.defaults.global.elements.rectangle.backgroundColor = '#FF0000';
+
+    var bar_ctx = document.getElementById(ele_id);
+    var bar_chart = new Chart(bar_ctx, {
+        type: type,
+        data: {
+            labels: dates,
+            datasets: [
+            {
+                label: 'Died',
+                data: died,
+                            backgroundColor: "rgba(219, 49, 26,0.8)",
+                            hoverBackgroundColor: "#EF5350",
+                            hoverBorderWidth: 0
+            },
+            {
+                label: 'recovered',
+                data: recovered,
+                            backgroundColor: "rgba(134, 189, 87,0.6)",
+                            hoverBackgroundColor: "#7E57C2",
+                            hoverBorderWidth: 0
+            },
+            {
+                label: 'Active',
+                data: active,
+                            backgroundColor: "rgba(238, 240, 113,0.7)",
+                            hoverBackgroundColor: "#FFCA28",
+                            hoverBorderWidth: 0
+            },            
+            ]
+        },
+        options: {
+                animation: {
+                duration: 10,
+            },
+            title: {
+            display: true,
+                text: title
+            },
+            responsive: false,
+            maintainAspectRatio: false,
+            tooltips: {
+                        mode: 'label',
+            callbacks: {
+            label: function(tooltipItem, data) { 
+                return data.datasets[tooltipItem.datasetIndex].label + ": " + numberWithCommas(tooltipItem.yLabel);
+            }
+            }
+            },
+            scales: {
+            xAxes: [{ 
+                stacked: is_stacked, 
+                gridLines: { display: false },
+                ticks: {
+                    autoSkip: if_skip_ticks
+                }
+                }],
+            yAxes: [{ 
+                stacked: is_stacked, 
+                ticks: {
+                        callback: function(value) { return numberWithCommas(value); },
+                        }, 
+                }],
+            }, // scales
+            legend: {display: true}
+        } // options
+    }
+    );
+  }
+    var died = maindata["totaldeceased"];
+    var recovered = maindata["totalrecovered"];
+    var active = maindata["totalconfirmed"]
+    var dates = maindata["date"]
+    //function makechart(died,recovered,active,dates,ele_id,title,type, is_stacked,if_skip_ticks)
+    makechart(died,recovered,active,dates,"graph1","time series","line",false,true) 
+
+    var died = maindata["dailydeceased"];
+    var recovered = maindata["dailyrecovered"];
+    var active = maindata["dailyconfirmed"]
+    var dates = maindata["date"]
+    //function makechart(died,recovered,active,dates,ele_id,title,type, is_stacked,if_skip_ticks)
+    makechart(died,recovered,active,dates,"graph2","per_day","bar",true,true)
+
+    var state_data=$("#state_data").html()
+    state_data = state_data.replace(/\'/g, "\"");
+    state_data=JSON.parse(state_data)
+    console.log(state_data)
+    main_state_data={
+        "deaths":[],
+        "active":[],
+        "state":[],
+        "recovered":[]
+    }
+    for(let z in state_data)
+    {   if(state_data[z]["state"]!="Total"){
+            main_state_data["deaths"].push(parseInt(state_data[z]["deaths"]))
+            main_state_data["active"].push(parseInt(state_data[z]["active"]))
+            main_state_data["recovered"].push(parseInt(state_data[z]["recovered"]))
+            main_state_data["state"].push(state_data[z]["state"])
+        }
+    }
+    console.log(main_state_data)
+    //function makechart(died,recovered,active,dates,ele_id,title,type, is_stacked,if_skip_ticks)
+    makechart(main_state_data["deaths"],main_state_data["recovered"],main_state_data["active"],main_state_data["state"],"graph3","state wise","bar",true,false)
+
+    </script>
+</body>
+</html>

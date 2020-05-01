@@ -1,0 +1,60 @@
+#footer{
+    background-color: coral;
+    padding: 5px;
+}
+
+h1{
+    margin: 4px;
+}
+
+.pp{
+    margin-bottom: 0px;
+}
+
+.boxdata{
+    font-weight: bold;
+    font-style: italic;
+}
+
+.indexcity {
+    z-index: 9999999;
+}
+
+.globalbox{
+    background-color: antiquewhite;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+}
+
+.indiabox{
+    background-color: antiquewhite;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+    height: 90px;
+    text-align: center;
+}
+  
+.right {
+    right: 0 !important;
+    left: 0 !important;
+}
+
+@media only screen and (max-width: 767px) {
+    .navbar-collapse{
+    background-color: white;
+    position: fixed;
+    top: 0;
+    transition:all 0.8s ease-out;
+    height: 100%;
+    width: 50%;
+    left: 700px;
+    margin-left: 50%;
+    }
+
+    .navbar-inverse .navbar-nav>li>a {
+    color: #000;
+    }
+}
