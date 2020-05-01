@@ -10,3 +10,5 @@ WORKDIR /home/covid
 
 # expose the port 5000
 EXPOSE 5000
+
+ENV FLASK_ENV=development
