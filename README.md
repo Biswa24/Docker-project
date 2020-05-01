@@ -17,7 +17,7 @@ for any troubleshooting , check out the [documentation](https://docs.docker.com/
   for docker compose , [click here](https://docs.docker.com/compose/install/)
 
 
-
+Start the docker application 
 
 ## Usage
 Go to the root directory & run 
