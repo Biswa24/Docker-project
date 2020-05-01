@@ -6,7 +6,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: urself
+    image: urself:latest
     container_name: flaskapp_new
     tty: true
     command: >

@@ -1,5 +1,5 @@
 # start from an official image
-FROM python:3
+FROM python:3.7-alpine
 
 RUN mkdir -p /home/covid
 COPY requirements.txt /requirements.txt
